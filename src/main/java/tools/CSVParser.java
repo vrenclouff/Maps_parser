@@ -26,7 +26,7 @@ public class CSVParser {
         try {
             Filter filter = filterClass.newInstance();
             Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(new FileReader(fileName));
-            return  stream(records.spliterator(), false).limit(10)
+            return  stream(records.spliterator(), false)
                     .map(r -> filter.process(r.get(1))).collect(toList());
         } catch (IOException | InstantiationException | IllegalAccessException e) {
             return Collections.emptyList();

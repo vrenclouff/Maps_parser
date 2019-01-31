@@ -1,3 +1,3 @@
-googleMapsAPI: "AIzaSyDts3XGrkd4wqSy5RTv7pRIeRmtmCrV1jE"
-msBingMapsAPI: "Ai2p-u2zD8QZw2WLQrPGw-P7IKPYG0FVZd_Xd9nIeNHHi9-IonQcy3AL3ssRpi8d"
-seznamMapsAPI: ""
+googleMapsAPI: "<API_KEY>"
+msBingMapsAPI: "<API_KEY>"
+seznamMapsAPI: "<API_KEY>"

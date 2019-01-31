@@ -14,6 +14,7 @@ public class BasicAddress implements Address {
 
     private String full;
 
+    private Status status;
 
     @Override
     public String getCountry() {
@@ -90,6 +91,15 @@ public class BasicAddress implements Address {
     @Override
     public String getFull() {
         return full;
+    }
+
+    @Override
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public void setFull(String full) {

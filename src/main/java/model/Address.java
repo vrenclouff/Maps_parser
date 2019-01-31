@@ -2,12 +2,20 @@ package model;
 
 public interface Address {
 
+    enum Status {
+        SUCCESS, EXPIRED, ERROR,
+    }
+
     static Address empty() {
-        return new BasicAddress();
+        BasicAddress address = new BasicAddress();
+        address.setStatus(Status.ERROR);
+        return address;
     }
 
     static Builder create() {
-        return new AddressBasicBuilder(new BasicAddress());
+        BasicAddress address = new BasicAddress();
+        address.setStatus(Status.SUCCESS);
+        return new AddressBasicBuilder(address);
     }
 
     String getCountry();
@@ -19,6 +27,7 @@ public interface Address {
     Float getLatitude();
     Float getLongitude();
     String getFull();
+    Status getStatus();
 
     interface Builder {
 
@@ -32,6 +41,7 @@ public interface Address {
         Builder setHouseNumber(String houseNumber);
         Builder setLatitude(float latitude);
         Builder setLongitude(float longitude);
+        Builder setStatus(Status status);
 
         Address get();
     }
@@ -95,6 +105,12 @@ public interface Address {
         @Override
         public Builder setLongitude(float longitude) {
             address.setLongitude(longitude);
+            return this;
+        }
+
+        @Override
+        public Builder setStatus(Status status) {
+            address.setStatus(status);
             return this;
         }
 

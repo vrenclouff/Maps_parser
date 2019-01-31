@@ -44,6 +44,10 @@ public class GoogleMap implements AbstractMap {
 
         String status = rootObject.getString("status");
 
+        if (status.equals("OVER_QUERY_LIMIT")) {
+            return Address.create().setStatus(Address.Status.EXPIRED).get();
+        }
+
         if (!status.equals("OK")) {
             return Address.empty();
         }
@@ -74,7 +78,6 @@ public class GoogleMap implements AbstractMap {
                     switch (type) {
                         case "street_number":               builder.setHouseNumber(item);   break;
                         case "route":                       builder.setStreet(item);        break;
-                        case "sublocality_level_1":         builder.setCity(item);          break; // delete
                         case "administrative_area_level_2": builder.setRegion(item);        break;
                         case "country":                     builder.setCountry(item);       break;
                         case "postal_code":                 builder.setZipCode(item);       break;

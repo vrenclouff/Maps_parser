@@ -1,3 +1,5 @@
+package core;
+
 import mapsAPI.AbstractMap;
 import model.Address;
 
@@ -24,8 +26,8 @@ public class Statistics {
     private Map<String, Object> emptyDataSheet() {
         HashMap<String, Object> map = new HashMap<>();
 
-        map.put("requestTime", (long)0);
-        map.put("requestCount", (long)0);
+        map.put("requestTime", new long[3]);
+        map.put("requestCount", new long[3]);
         map.put("score", (long)0);
 
         return map;
@@ -35,9 +37,12 @@ public class Statistics {
 
         Map<String, Object> sts = data.get(mapType.ordinal());
 
-        sts.merge("requestTime", requestTime, (a, b) -> (Long)a + (Long)b);
-        sts.merge("requestCount", (long)1, (a, b) -> (Long)a + (Long)b);
 
+        ((long[])sts.get("requestTime"))[address.getStatus().ordinal()] += requestTime;
+        ((long[])sts.get("requestCount"))[address.getStatus().ordinal()] += 1;
+
+
+        if (!address.getStatus().equals(Address.Status.SUCCESS)) return;
 
         String normalizedSource = normalize(source);
 
@@ -73,13 +78,20 @@ public class Statistics {
         System.out.println("---- " + mapType.getName() + " ------");
         Map<String, Object> sts = data.get(mapType.ordinal());
 
-        long count = (Long)sts.get("requestCount");
-        System.out.println(String.format("processed address: %s", count));
+        int successIndex = Address.Status.SUCCESS.ordinal();
 
-        long avgReqTime = (Long)sts.get("requestTime") / count;
+        long[] counts = (long[])sts.get("requestCount");
+        System.out.println("processed address:");
+
+        for (Address.Status status : Address.Status.values()) {
+            System.out.println(String.format("\t%s: %s", status.name(), counts[status.ordinal()]));
+        }
+
+
+        long avgReqTime = ((long[])sts.get("requestTime"))[successIndex] / counts[successIndex];
         System.out.println(String.format("average request time: %s ms", avgReqTime));
 
-        long score = (Long)sts.get("score") / count;
+        long score = (Long)sts.get("score") / counts[successIndex];
         System.out.println(String.format("score: %s", score));
     }
 }

@@ -1,3 +1,5 @@
+package core;
+
 import tools.Args;
 
 import java.io.BufferedWriter;

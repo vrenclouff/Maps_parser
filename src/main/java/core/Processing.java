@@ -1,3 +1,5 @@
+package core;
+
 import mapsAPI.AbstractMap;
 import model.Address;
 import model.BasicAddress;

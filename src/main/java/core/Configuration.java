@@ -1,3 +1,5 @@
+package core;
+
 import filter.AddressFilter;
 import mapsAPI.AbstractMap;
 import mapsAPI.GoogleMap;
@@ -71,18 +73,26 @@ public class Configuration {
             List<AbstractMap> maps = new ArrayList<>();
 
             if (MSBingMaps) {
-                maps.add(MSBingMap.newInstance(MSBING_MAPS_API, keys.getMsBingMapsAPI()));
+                maps.add(MSBingMap.newInstance(MSBING_MAPS_API, validApiKey(keys.getMsBingMapsAPI())));
             }
 
             if (GMaps) {
-                maps.add(GoogleMap.newInstance(GOOGLE_MAPS_API, keys.getGoogleMapsAPI()));
+                maps.add(GoogleMap.newInstance(GOOGLE_MAPS_API, validApiKey(keys.getGoogleMapsAPI())));
             }
 
             if (SMaps) {
-                maps.add(SeznamMap.newInstance(SEZNAM_MAPS_API, keys.getSeznamMapsAPI()));
+                maps.add(SeznamMap.newInstance(SEZNAM_MAPS_API, validApiKey(keys.getSeznamMapsAPI())));
             }
 
             return maps;
+        }
+
+        static String validApiKey(String key) {
+            if (key.equals("<API_KEY>")) {
+                System.err.println("Please, insert valid API key!");
+                System.exit(1);
+            }
+            return key;
         }
 
     }

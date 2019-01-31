@@ -1,7 +1,6 @@
 package mapsAPI;
 
 import model.Address;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class SeznamMap implements AbstractMap {
 
@@ -13,7 +12,7 @@ public class SeznamMap implements AbstractMap {
     @Override
     public Address process(String address) {
         // TODO Seznam maps doesn't have a public REST API.
-        throw new NotImplementedException();
+        return null;
     }
 
     @Override

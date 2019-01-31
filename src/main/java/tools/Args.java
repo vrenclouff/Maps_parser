@@ -13,7 +13,7 @@ public class Args {
         JCommander.newBuilder().addObject(args).build().parse(argv);
 
         if (!Paths.get(args.getKeysFile()).toFile().exists()) {
-            throw new FileNotFoundException("Configuration file wan't found.");
+            throw new FileNotFoundException("core.Configuration file wan't found.");
         }
 
         if (args.getInput() != null && !Paths.get(args.getInput()).toFile().exists()) {
